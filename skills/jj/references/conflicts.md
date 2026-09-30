@@ -7,7 +7,7 @@ tools available when they are the better fit.
 ## Detecting conflicts
 
 - Conflict markers show up in command output:
-  - `jj rebase` / `jj merge` report `New conflicts appeared in …`.
+  - `jj rebase` / a merge created with `jj new` report `New conflicts appeared in …`.
   - `jj log` labels conflicting commits with `(conflict)`, and `jj status` lists paths under
     “Warning: There are unresolved conflicts …”.
 - List conflicted paths explicitly with `jj resolve -r <conflicted-change> --list`.
@@ -46,11 +46,13 @@ Always edit the file to the desired final content and delete the entire marker b
    the working copy has no conflicts.
    When clean, jj prints “No conflicts found at this revision” and exits with status 2.
    Treat that as success. Pass `-r <rev>` if you need to inspect another commit.
-4. Fold the resolution back into the conflicted change:
-   `jj squash --into @- --use-destination-message` (or supply `-m "message"` if the description
-   must change), then update the description with `jj describe -m "message"` if needed.
-5. Re-run `jj resolve -r @- --list`; expect the same “No conflicts found …” message and exit
-   status once the resolution is folded back into the conflicted commit.
+4. If step 1 created a child, fold its resolution back into the conflicted change:
+   `jj squash --into @- --use-destination-message` (or supply `-m "message"` to change the
+   destination description). Any later description edit must target that destination explicitly,
+   for example `jj describe -r @- -m "message"`. If you stayed on `@`, its resolution is already
+   in the intended change; do not squash it into its parent.
+5. Re-run `jj resolve -r @- --list` after folding a child, or `jj resolve --list` if you stayed on
+   `@`; expect the same “No conflicts found …” message and exit status.
 
 ## Bookmark conflicts
 

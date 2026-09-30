@@ -98,7 +98,7 @@ of the following commands:
 1. Run `jj status` or `jj diff -s`; record existing edits and which changes belong to this task.
 2. Create or focus the change you want (`jj new` for an empty child if needed).
 3. Make edits, then record with `jj commit -m "message"`; if you need to fold new edits into the
-   parent, run `jj squash --into @-` and refresh the description with `jj describe -m "message"`.
+   parent, run `jj squash --into @- -m "message"`.
 4. Review history with `jj log`.
 5. Synchronize bookmarks with `jj git push --remote origin --bookmark <name>`.
 6. If you rewrite history, review `jj op log`.
@@ -118,7 +118,7 @@ Mark each step as done before moving on.
 
 - `git status` → `jj status` or `jj diff -s`
 - `git commit -am` → `jj commit -m "message"` (pass filesets positionally)
-- `git commit --amend` → `jj squash --into @-` followed by `jj describe -m "message"`
+- `git commit --amend` → `jj squash --into @- -m "message"`
 - `git restore <path>` → `jj restore '<fileset>'`
 - `git reset --hard` → `jj restore` (discards all working copy changes)
 - `git revert <commit>` → `jj revert -r '<revset>' -d @`
@@ -147,7 +147,12 @@ Mark each step as done before moving on.
   `jj log -r @- -T 'change_id.short() ++ " " ++ description.first_line() ++ "\n"'`.
   If the exact immutable snapshot matters, include `commit_id` second and label it explicitly.
 - Fold the working copy back into its parent (git amend equivalent):
-  `jj squash --into @-` followed by `jj describe -m "Updated message"`
+  `jj squash --into @- -m "Updated message"`.
+- Keep the parent's description while folding in edits:
+  `jj squash --into @- --use-destination-message`.
+  Plain squash can open an editor when both descriptions are nonempty. Choose the message policy
+  explicitly for unattended commands. A full squash usually abandons the source and creates an
+  empty `@`; to describe the amended parent afterward, use `jj describe -r @- -m "Updated message"`.
 - Update only the description without creating a new change:
   `jj describe -m "Better message"`
 - If a message begins with `--`, pass `--` before it:
