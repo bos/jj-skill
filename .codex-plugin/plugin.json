@@ -1,0 +1,30 @@
+{
+  "name": "jj",
+  "version": "1.0.0",
+  "description": "Jujutsu workflows for commits, history, bookmarks, workspaces, and remotes",
+  "author": {
+    "name": "Bryan O'Sullivan"
+  },
+  "keywords": [
+    "jj",
+    "jujutsu",
+    "source-control"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Jujutsu (jj)",
+    "shortDescription": "Use jj for source control and workspace workflows",
+    "longDescription": "Manage jj commits, history, bookmarks, and workspaces.",
+    "developerName": "Bryan O'Sullivan",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use the jj skill to inspect this repository and help with its next change."
+    ]
+  },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/bos/jj-skill"
+}

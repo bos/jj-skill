@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "jj",
+  "version": "1.0.0",
+  "description": "Jujutsu workflows for commits, history, bookmarks, workspaces, and remotes",
+  "author": {
+    "name": "Bryan O'Sullivan"
+  },
+  "keywords": [
+    "jj",
+    "jujutsu",
+    "source-control"
+  ],
+  "license": "Apache-2.0",
+  "repository": "https://github.com/bos/jj-skill"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jujutsu (jj)"
+  short_description: "Use jj for source control and workspace workflows"
+  default_prompt: "Use $jj to inspect this repository and help with its next change."

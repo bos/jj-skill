@@ -1,0 +1,21 @@
+{
+  "name": "jj-skill",
+  "description": "Jujutsu skills for coding agents",
+  "owner": {
+    "name": "Bryan O'Sullivan"
+  },
+  "plugins": [
+    {
+      "name": "jj",
+      "description": "Jujutsu workflows for commits, history, bookmarks, workspaces, and remotes",
+      "version": "1.0.0",
+      "source": "./",
+      "category": "development",
+      "keywords": [
+        "jj",
+        "jujutsu",
+        "source-control"
+      ]
+    }
+  ]
+}
