@@ -3,6 +3,19 @@
 Agent Skills for working with [Jujutsu](https://docs.jj-vcs.dev/) (`jj`). The `jj` skill covers
 commits, diffs, history edits, bookmarks, conflicts, workspaces, and remote synchronization.
 
+## Tested versions
+
+**Last tested: 2026-09-30 on macOS.**
+
+| Tool | Version |
+| --- | --- |
+| Jujutsu (`jj`) | `0.45.1` |
+| Claude Code | `2.1.285` |
+| Codex CLI | `0.159.2` |
+
+Checks cover basic jj command workflows, strict Claude Code plugin manifest validation, and
+Codex marketplace discovery.
+
 The same skill files are packaged for Codex and Claude Code. They require `jj` on `PATH`.
 Repository detection uses `jj --ignore-working-copy root` when the repository type has not
 already been confirmed.
@@ -77,5 +90,6 @@ claude plugin validate --strict .claude-plugin/marketplace.json
 Keep the name, version, license, and description consistent across the plugin manifests.
 For command examples, follow [the contributing guidance](CONTRIBUTING.md) and test them against
 the installed `jj` version. Keep files within 96–98 columns where practical.
+Update the tested versions and date near the top of this README after revalidating a release.
 
 Copyright 2026 Bryan O'Sullivan. Licensed under [Apache-2.0](LICENSE).
