@@ -221,9 +221,11 @@ example `jj restore --from @- --into @-- 'root:"src/"'`.
   `jj abandon @` removes the working copy commit and rebases children onto `@-`. The working copy
   gets a new empty commit.
 - Abandon a specific revision:
-  `jj abandon <revset>` removes that commit and rebases its descendants (use when you want to
-  delete a commit but keep its changes in descendants).
-- Abandon without moving bookmarks:
+  `jj abandon <revset>` removes that commit and rebases descendants onto its parents. The abandoned
+  commit's changes are removed from descendant trees; descendants keep their own changes.
+- Keep descendants' final file contents while removing a commit:
+  `jj abandon --restore-descendants <revset>`.
+- Keep bookmarks when abandoning:
   `jj abandon --retain-bookmarks <revset>` moves bookmarks to the parent instead of deleting them.
 
 
