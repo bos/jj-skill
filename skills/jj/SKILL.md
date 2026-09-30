@@ -323,6 +323,8 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
   would disrupt another writer using this checkout.
 - Record the names and paths of workspaces this session creates. Retire them after this task and
   the commands or agents you launched there have finished; retain workspaces handed to others.
+  Snapshot pending notes, forget that workspace, then move its directory to recoverable trash.
+  See [cleanup](references/parallel-workspaces.md#ownership-and-cleanup).
 - Choose the base needed by the task, including an unpublished mutable dependency. Rewrites of
   that base can make your workspace stale; inspect it after `jj workspace update-stale`.
 - Before rewriting, inspect `working_copies() & ROOTS::`, where `ROOTS` includes every root the

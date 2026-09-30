@@ -25,6 +25,26 @@ or agent you launched there have finished. If you handed it to another session o
 edits, leave it in place and report it. A clean diff does not account for ignored files or
 processes using the directory.
 
+Snapshot pending tracked edits in the owned workspace before cleanup so they remain in history.
+From another checkout, run `jj --ignore-working-copy workspace forget NAME`; it unregisters the
+workspace and leaves its directory in place without snapshotting that other checkout. Move the
+whole directory, including ignored files and `.jj`, to recoverable system trash. Use an absolute
+path and check the operation's exit status:
+
+- macOS, with native `trash`: `trash --stopOnError "$workspace_path"`.
+  Native macOS `trash` does not accept `--`; an absolute path also avoids option-like names.
+- Linux: `gio trash -- "$workspace_path"` or installed `trash-put "$workspace_path"`.
+- Windows: use Explorer's Recycle Bin operation or a verified tool with recycle semantics.
+  An unguarded `SendToRecycleBin` API can permanently delete in a noninteractive session;
+  [Microsoft documents the interactive-context restriction][windows-recycle].
+
+If a trash tool is unavailable, the volume does not support trash, or the operation fails, leave
+the directory in place and report it. Never fall back to `rm`, `rmdir`, `Remove-Item`, or
+`shutil.rmtree`, and do not empty the trash as part of workspace cleanup.
+
+[windows-recycle]:
+  https://learn.microsoft.com/dotnet/api/microsoft.visualbasic.fileio.filesystem.deletedirectory
+
 ## Sharing a checkout
 
 Pre-existing edits and edits arriving during the task both need protection. Status and diff show
