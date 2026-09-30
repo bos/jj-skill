@@ -88,7 +88,7 @@ of the following commands:
 ### Mental model mappings
 
 - Git "branch" → jj bookmark (local pointer mapped to a Git branch on push).
-- Git "index/staging" → no equivalent; every command accepts filesets directly.
+- Git "index/staging" → no equivalent; pass filesets to commands that support them.
 - Git "HEAD" → jj working copy `@`; parent is `@-`.
 - Git "reflog" → jj operation log (`jj op log`, `jj undo`, `jj redo`).
 - Git "rebase -i" → jj squash/split/rebase commands with automatic descendant handling.
@@ -162,8 +162,16 @@ Mark each step as done before moving on.
 
 - Short status-like summary:
   `jj diff -s` (optionally scope with a fileset, e.g., `jj diff -s 'root:"src/"'`)
-- Compare parent vs working copy:
-  `jj diff -r @- -r @` (or `--from @- --to @`)
+- Show the working-copy change: `jj diff` (equivalent to `jj diff -r @`).
+- Compare two trees: `jj diff --from @- --to @`.
+  Repeated `-r` values combine change patches; they do not name comparison endpoints. Do not
+  combine `-r` with `--from` or `--to`.
+- Show one revision's patch for selected files: `jj diff -r @- --git src/`.
+  `jj show` accepts revisions, not filesets; use `jj diff -r REV FILESETS` for a scoped patch or
+  `jj file show -r REV PATH` for file contents.
+- For filename lists, use `jj diff --name-only`. Choose one format: do not combine `--stat`,
+  `--summary`, or `--name-only`, or combine them with `jj show --no-patch`.
+- `jj diff` has no Git-style `--check`; use the project's formatter or whitespace checker.
 - Agents can mistake jj's default diff format for Git's. Use `jj diff --git` when you need a
   Git-compatible patch.
 - Limit operations to paths/filesets by passing them positionally:
