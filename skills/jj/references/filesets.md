@@ -1,6 +1,8 @@
 # filesets in jj
 
 Many `jj` commands accept positional **fileset** selectors.
+`jj file annotate PATH` instead takes one literal path; `root:` and `glob:` expressions are
+not accepted there. Run annotation from the target workspace and pass an ordinary path.
 
 If you can't find what you need below, run `jj help -k filesets` for the authoritative
 reference on filesets.

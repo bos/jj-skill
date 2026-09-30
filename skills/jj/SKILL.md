@@ -181,6 +181,7 @@ Mark each step as done before moving on.
   `jj commit src/lib.rs tests/` (there is no `--paths`).
   `-R` selects a workspace without changing the current directory; use `root:` filesets or run
   from that workspace. All options must precede `--`, which ends option parsing.
+  `jj file annotate PATH` takes a literal path, not a fileset; run it in the target workspace.
   See [filesets.md](references/filesets.md) for filesets.
 
 ### Splitting and merging changes
