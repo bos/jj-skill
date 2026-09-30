@@ -10,6 +10,8 @@ Create a workspace at the revision the task needs:
 jj workspace add --name NAME -r BASE PATH
 ```
 
+Do not pass `--ignore-working-copy` to `workspace add`: it must populate the new working copy.
+
 `BASE` can be an unpublished mutable dependency; it need not be `main` or immutable. Specify it
 explicitly: without `-r`, the new workspace starts from the current working copy's parents.
 Rewriting a mutable base also rebases descendants and can make your workspace stale. Run
