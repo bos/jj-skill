@@ -1,21 +1,41 @@
 # Parallel workspaces in jj
 
-Workspaces isolate checked-out files, not history. Prefer an immutable base for independent work;
-rewriting mutable history can also rewrite another workspace's working-copy commit.
+Workspaces isolate checked-out files, not history.
 
-Do not use an active workspace's working-copy change as the parent of a parallel workspace;
-normal work in the active workspace will keep rewriting that parent.
+## Choosing a base
+
+Create a workspace at the revision the task needs:
+
+```bash
+jj workspace add --name NAME -r BASE PATH
+```
+
+`BASE` can be an unpublished mutable dependency; it need not be `main` or immutable. Specify it
+explicitly: without `-r`, the new workspace starts from the current working copy's parents.
+Rewriting a mutable base also rebases descendants and can make your workspace stale. Run
+`jj workspace update-stale` in your own workspace when jj reports this, then use `jj status` and
+`jj log` to inspect conflicts and divergent changes as described under [recovery](#recovery).
 
 ## Ownership and cleanup
 
 Record the names and paths of workspaces your session creates. A sibling appearing in
 `jj workspace list` may belong to another session; its presence is not permission to clean it up.
-Only forget or delete workspaces you created and have finished using. A clean working-copy diff
-does not account for ignored files, caches, or a process still using that directory.
+Retire only a workspace recorded as created by this session, after the task and every command
+or agent you launched there have finished. If you handed it to another session or find unexpected
+edits, leave it in place and report it. A clean diff does not account for ignored files or
+processes using the directory.
 
-When sharing one workspace, record pre-existing edits and scope commits, squashes, and restores
-to owned changes. A changed file can contain edits from several people; use interactive selection
-or filesystem isolation when file-level ownership is insufficient.
+## Sharing a checkout
+
+Pre-existing edits and edits arriving during the task both need protection. Status and diff show
+current contents, not who made them or who will write next. Treat unattributed edits as belonging
+to someone else; do not claim a whole file because it was clean at the start.
+
+Disjoint-file edits can stay in the current checkout with task-scoped commits. For overlapping
+concurrent file edits, or when switching revisions would disrupt another writer, use a separate
+workspace. A fileset or interactive hunk selection cannot prevent a later write to the same file
+from being included when your command snapshots it. Do not copy the entire shared pending diff
+into your workspace; it may contain unrelated edits.
 
 ## Before rewriting shared history
 
@@ -37,10 +57,9 @@ but can still diverge if another process rewrites the same change concurrently. 
 changes can make sibling working copies stale, displace unsnapshotted edits into divergent
 commits, or create rebase conflicts.
 
-If an affected sibling is known idle, snapshot it before the rewrite and run
-`workspace update-stale` there afterward. If it may be active and cannot be contacted, keep the
-fix in its own child change instead of squashing it into shared history. Repeat the check before
-squashing it later.
+If a tree-changing rewrite would affect another session's workspace, keep the fix in its own
+child change instead of squashing it into shared history. Do not snapshot or run
+`workspace update-stale` in another session's workspace. Repeat the check before later squashing.
 
 ## Recovery
 

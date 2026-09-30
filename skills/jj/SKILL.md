@@ -95,7 +95,7 @@ of the following commands:
 
 ## Minimal workflow checklist
 
-1. Run `jj status` or `jj diff -s`; record existing edits and which changes belong to this task.
+1. Run `jj status` or `jj diff -s` to inspect existing edits; preserve those outside this task.
 2. Create or focus the change you want (`jj new` for an empty child if needed).
 3. Make edits, then record with `jj commit -m "message"`; if you need to fold new edits into the
    parent, run `jj squash --into @- -m "message"`.
@@ -137,9 +137,9 @@ Mark each step as done before moving on.
 
 - Review the full diff before committing, squashing, or restoring. A file appearing in the diff
   does not establish ownership. Preserve edits from the user or other agents.
-- In a shared or already dirty working copy, pass owned filesets to `jj commit` or `jj squash`.
-  If ownership overlaps within a file, use interactive selection or isolate the work; selecting
-  the whole file also selects the other person's edits.
+- In a dirty checkout, scope commits, squashes, and restores to this task's files or hunks.
+  Selecting a whole file also selects other people's edits in it. Interactive selection can
+  separate existing hunks, but does not protect against another process writing afterward.
 - Snapshot the working copy as a new change (no editor):
   `jj commit -m "Message"`
 - After `jj commit`, if you need to report what you created to the user, query the parent with a
@@ -318,15 +318,17 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 
 ### Parallel isolated work
 
-- Share the current workspace when file ownership is clear; use a `jj` workspace, not a Git
-  worktree, when filesystem isolation matters.
-- Record the names and paths of workspaces this session creates. Only forget or delete those
-  workspaces during cleanup; registration in `jj workspace list` does not establish ownership.
-- Prefer an immutable change as the base for independent parallel work.
+- Disjoint-file edits can stay in the current checkout; scope commits to this task's files.
+  Use a separate workspace for overlapping concurrent file edits, or when switching revisions
+  would disrupt another writer using this checkout.
+- Record the names and paths of workspaces this session creates. Retire them after this task and
+  the commands or agents you launched there have finished; retain workspaces handed to others.
+- Choose the base needed by the task, including an unpublished mutable dependency. Rewrites of
+  that base can make your workspace stale; inspect it after `jj workspace update-stale`.
 - Before rewriting, inspect `working_copies() & ROOTS::`, where `ROOTS` includes every root the
   operation can rewrite.
-- If a sibling appears and may be active, avoid tree-changing rewrites of the shared target.
-  Keep the fix in its own child change. Description-only changes are usually lower risk.
+- If a tree-changing rewrite affects another session's workspace, keep the fix in its own child.
+  Description-only changes are usually lower risk.
 - Read [parallel workspace guidance](references/parallel-workspaces.md) before creating a parallel
   workspace; it also covers preflight, shared-history fallbacks, and recovery.
 
