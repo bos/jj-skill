@@ -12,6 +12,12 @@ of sixteen selected scenarios give a small, correlated sample, rather than indep
 See [the recorded comparison](results/2026-09-30/README.md) for models, source revisions,
 results, and evaluation corrections. Saved plans can be replayed without another model call.
 
+The original c01/c02 fixtures contain static pre-existing edits, not a continuing writer.
+Original c03 checks workspace ownership and tracked notes in history; it does not check ignored
+files or recoverable trash. Its frozen replay allowance for removing the task's own directory
+belongs to that historical battery. Use the [focused ownership checks](ownership/README.md) for
+live writers, mutable dependencies, and the current recoverable-cleanup policy.
+
 ## Verify the fixtures
 
 Use jj 0.45.1. `JJ_EVAL_JJ` can name an installed binary when the default `jj` is a version

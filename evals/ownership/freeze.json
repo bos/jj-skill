@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "sha256": {
+    "focused_runner.py": "cdfdd0f6d8f743e9f50c56dafa534a9755b536a7a5d0238df7591a9e682c796f",
+    "cases.json": "0befd06303f4f68e4cf13eba51b997b9ba1a9af52061bca8492b258094ba4b12",
+    "contract.txt": "c3e6beb5a5000c0b174b533bdb7706f08b982ab53d125f71facec91134b51f2c",
+    "canaries.py": "2575f47395c342d41630af04fadc7bb4835d8e22b794e0ad90d825612ec9ef85",
+    "run_pairs.py": "c2f22a8f508598805e6dda5b7ed0f12124c5460011daccbcbd4f4d5adc09737e",
+    "glm_adapter_300.py": "fc236cba752775aa070b26358160873a0cbf0031918f01fe31df1b689d855fbb"
+  },
+  "note": "Cases, contract, outcome judge, and canaries frozen before inference."
+}
