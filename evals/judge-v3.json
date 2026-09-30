@@ -1,0 +1,9 @@
+{
+  "judge_version": 3,
+  "sha256": {
+    "cases.json": "e0ad89d6545abd9742b265f1a4e3cd461bd13cd9d340281cba98a26ea869de1c",
+    "runner.py": "bddc8bb3938d54745cae4d3a5aba7ff718677ae71fae4520843e39f47dbd79de",
+    "canary_negative.py": "5d17a43bb35d0ab451955ac46e20ac82330830e94d8edae6ac3c2e104e779016"
+  },
+  "grading_rules_fixed_before_final_output_review": true
+}

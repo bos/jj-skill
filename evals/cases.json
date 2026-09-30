@@ -1,0 +1,82 @@
+[
+  {
+    "id": "c01",
+    "request": "Commit the app.txt change as 'app: fix output'. The notes.txt edit is the user's unfinished work and must remain uncommitted.",
+    "context": "main workspace: @ is an undescribed child of main. app.txt was alpha\\n and is now beta\\n (our edit); notes.txt was original\\n and is now user draft\\n."
+  },
+  {
+    "id": "c02",
+    "request": "Discard our app.txt experiment while preserving the user's notes.txt edits.",
+    "context": "main workspace: @ is an undescribed child of main. app.txt changed from alpha\\n to beta\\n during our experiment; notes.txt changed from original\\n to user draft\\n independently."
+  },
+  {
+    "id": "c03",
+    "request": "Clean up workspaces created by this task. Their pending notes must remain available in repository history. Leave other workspaces and the main checkout intact.",
+    "context": "main is the current workspace. This task created scratch at ../scratch; it has unsnapshotted scratch-notes.txt containing saved notes\\n. active at ../active belongs to another session and has unsnapshotted active-work.txt containing in progress\\n. Both start from empty children of immutable main. The active session cannot be contacted."
+  },
+  {
+    "id": "c04",
+    "request": "Fold the working-copy follow-up into its parent and give the combined change the description 'feature: complete'. Leave a clean, undescribed working-copy child afterward.",
+    "context": "main workspace: parent @- has description 'feature: initial' and app.txt=beta\\n; @ has description 'follow-up: polish' and app.txt=gamma\\n. Terminal editors cannot be used."
+  },
+  {
+    "id": "c05",
+    "request": "Commit the app.txt edit with the exact description '--cleanup'. Leave a fresh empty working copy afterward.",
+    "context": "main workspace: @ is an undescribed child of main and app.txt changed from alpha\\n to beta\\n. No other pending edits."
+  },
+  {
+    "id": "c06",
+    "request": "Print a Git-compatible patch showing only the changes from the current parent to the working copy. Preserve the repository.",
+    "context": "main workspace: @- added parent-only.txt in its own change; @ changes app.txt from alpha\\n to beta\\n. The parent-only addition is already in the parent."
+  },
+  {
+    "id": "c07",
+    "request": "Print file names and added/removed line counts for the working-copy changes, without a full patch. Preserve the repository.",
+    "context": "main workspace: @ changes app.txt from alpha\\n to beta\\n. No other pending edits."
+  },
+  {
+    "id": "c08",
+    "request": "Check the pending edit for trailing whitespace and print a useful diagnostic. Preserve all files and history.",
+    "context": "main workspace: app.txt now contains alpha\\ntrailing   \\n. This repository's standard whitespace check is check_whitespace.py, invoked with Python 3; it reports violations and exits 1 when it finds them."
+  },
+  {
+    "id": "c09",
+    "request": "Print the Git-compatible patch introduced by review, scoped to app.txt only. Preserve the repository.",
+    "context": "main workspace: local bookmark review names a commit which changed both app.txt and notes.txt. @ is an empty child of review."
+  },
+  {
+    "id": "c10",
+    "request": "From the current main directory, print the sibling repository's Git-compatible patch for docs/readme.txt only. Preserve both repositories.",
+    "context": "main and sibling are separate jj repositories at ../main and ../sibling. sibling's working copy changes docs/readme.txt from old docs\\n to new docs\\n and other.txt from old\\n to new\\n. cwd aliases main and sibling are available."
+  },
+  {
+    "id": "c11",
+    "request": "Print the current change's evolution as tab-separated abbreviated commit IDs and first-line descriptions, one row per historical version, without graph decoration. Preserve the repository.",
+    "context": "main workspace: @ is a described mutable change amended once. Its descriptions were 'draft one' and 'draft two'."
+  },
+  {
+    "id": "c12",
+    "request": "Print the latest two operations as tab-separated abbreviated operation IDs and descriptions, one operation per row, without graph decoration. Preserve the repository.",
+    "context": "main workspace: a small repository with several ordinary operations. IDs requested here identify operations."
+  },
+  {
+    "id": "c13",
+    "request": "Annotate app.txt, printing tab-separated abbreviated change ID, line number, and line content for each line, without extra headers. Preserve the repository.",
+    "context": "main workspace: app.txt is a committed file with two lines: alpha\\nbeta\\n."
+  },
+  {
+    "id": "c14",
+    "request": "Rebase the complete local two-change feature stack onto the latest main, retaining both feature changes and leaving its empty working-copy child on top.",
+    "context": "main workspace: main moved to a new sibling trunk commit adding trunk.txt. The local stack still starts from the previous main: description 'feature bottom' adds bottom.txt; 'feature top' adds top.txt; @ is their empty child. Bookmark feature names the top feature commit."
+  },
+  {
+    "id": "c15",
+    "request": "Remove the obsolete ancestor change from the feature history while preserving the descendant's exact final file contents. Keep the surviving change's description and leave its empty working-copy child on top.",
+    "context": "main workspace: obsolete names an ancestor described 'obsolete' that added legacy.txt=legacy\\n. Its descendant keep is described 'keep' and added keep.txt=keep\\n while retaining legacy.txt. @ is an empty child of keep."
+  },
+  {
+    "id": "c16",
+    "request": "Print every registered workspace's name, abbreviated working-copy change ID, and first-line description as tab-separated rows with no extra headers. Preserve the repository and all workspace contents.",
+    "context": "main workspace: main and sibling are registered workspaces in one repository. Their working-copy descriptions are 'main task' and 'sibling task'."
+  }
+]

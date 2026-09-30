@@ -92,4 +92,7 @@ For command examples, follow [the contributing guidance](CONTRIBUTING.md) and te
 the installed `jj` version. Keep files within 96–98 columns where practical.
 Update the tested versions and date near the top of this README after revalidating a release.
 
+The [first-plan evaluation](evals/README.md) compares the skill across Codex, Claude, and GLM
+using disposable jj repositories and recorded command plans.
+
 Copyright 2026 Bryan O'Sullivan. Licensed under [Apache-2.0](LICENSE).

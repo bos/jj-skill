@@ -1,0 +1,6 @@
+__pycache__/
+runs/
+review/
+canary.json
+negative-canary.json
+/results/
