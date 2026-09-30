@@ -7,8 +7,9 @@ keywords, methods, and helper functions.
 
 ## Concepts to remember
 
-- Zero-argument methods on the current commit become keywords (`commit_id` is shorthand for
-  `self.commit_id()`). Use method-call syntax when you need arguments or chaining.
+- Zero-argument methods on the command's context become keywords. In `jj log` / `jj show`,
+  `commit_id` is shorthand for `self.commit_id()`. Other commands use different context types;
+  check `jj help COMMAND` before reusing a template.
 - Collections expose iterator helpers such as `.map(|item| ...)` and `.join(" ")`—handy for
   bookmarks, parents, and files.
 - High-leverage helpers include `separate(" ", ...)` for optional components and
@@ -21,8 +22,27 @@ keywords, methods, and helper functions.
 - Include bookmarks:
   `jj log -T 'commit_id.short() ++ " " ++ self.bookmarks().map(|b| b.name()).join(" ") ++`
   `" " ++ description.first_line()'`
-- Use helper methods via method syntax and parentheses. Most day-to-day commands (`jj log`,
-  `jj status`, etc.) accept `-T`.
+- Use helper methods via method syntax and parentheses. `jj status` does not accept `-T`;
+  use `jj log -r @` to format working-copy metadata.
+
+## Command-specific contexts
+
+`jj evolog` uses an evolution entry, and `jj file annotate` uses an annotation line. Both expose
+the associated commit through `commit`; bare log keywords such as `commit_id` are unavailable.
+
+```bash
+jj evolog -r @- --no-graph \
+  -T 'commit.commit_id().short() ++ " " ++ commit.description().first_line() ++ "\n"'
+jj file annotate -T 'commit.change_id().short() ++ " " ++ content' path/to/file
+```
+
+`jj op log` uses an operation directly: use `id` and `description`, not an invented `op` receiver.
+`jj workspace list` uses a workspace reference: `name`, `target`, and optional `root`, not `path`.
+
+```bash
+jj op log --no-graph -T 'id.short() ++ " " ++ description ++ "\n"'
+jj workspace list -T 'name ++ " " ++ target.change_id().short() ++ "\n"'
+```
 
 ## Tips
 

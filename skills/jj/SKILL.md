@@ -331,7 +331,8 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 - For user-facing summaries, prefer a change-only template:
   `jj log -T 'change_id.short() ++ " " ++ description.first_line()'`
 - Use helper methods (e.g., `self.bookmarks().map(|b| b.name()).join(" ")` for bookmark names).
-  See [templates.md](references/templates.md) for a compact reference and aliases.
+  Templates have command-specific contexts; `evolog`, `file annotate`, and `op log` do not expose
+  the same keywords as `log`. See [templates.md](references/templates.md) for tested examples.
 
 ## Helpful habits
 
