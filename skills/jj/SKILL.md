@@ -95,7 +95,7 @@ of the following commands:
 
 ## Minimal workflow checklist
 
-1. Run `jj status` or `jj diff -s` to understand the working copy.
+1. Run `jj status` or `jj diff -s`; record existing edits and which changes belong to this task.
 2. Create or focus the change you want (`jj new` for an empty child if needed).
 3. Make edits, then record with `jj commit -m "message"`; if you need to fold new edits into the
    parent, run `jj squash --into @-` and refresh the description with `jj describe -m "message"`.
@@ -135,6 +135,11 @@ Mark each step as done before moving on.
 
 ### Commit and describe
 
+- Review the full diff before committing, squashing, or restoring. A file appearing in the diff
+  does not establish ownership. Preserve edits from the user or other agents.
+- In a shared or already dirty working copy, pass owned filesets to `jj commit` or `jj squash`.
+  If ownership overlaps within a file, use interactive selection or isolate the work; selecting
+  the whole file also selects the other person's edits.
 - Snapshot the working copy as a new change (no editor):
   `jj commit -m "Message"`
 - After `jj commit`, if you need to report what you created to the user, query the parent with a
@@ -294,6 +299,8 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 
 - Share the current workspace when file ownership is clear; use a `jj` workspace, not a Git
   worktree, when filesystem isolation matters.
+- Record the names and paths of workspaces this session creates. Only forget or delete those
+  workspaces during cleanup; registration in `jj workspace list` does not establish ownership.
 - Prefer an immutable change as the base for independent parallel work.
 - Before rewriting, inspect `working_copies() & ROOTS::`, where `ROOTS` includes every root the
   operation can rewrite.

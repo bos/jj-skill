@@ -6,6 +6,17 @@ rewriting mutable history can also rewrite another workspace's working-copy comm
 Do not use an active workspace's working-copy change as the parent of a parallel workspace;
 normal work in the active workspace will keep rewriting that parent.
 
+## Ownership and cleanup
+
+Record the names and paths of workspaces your session creates. A sibling appearing in
+`jj workspace list` may belong to another session; its presence is not permission to clean it up.
+Only forget or delete workspaces you created and have finished using. A clean working-copy diff
+does not account for ignored files, caches, or a process still using that directory.
+
+When sharing one workspace, record pre-existing edits and scope commits, squashes, and restores
+to owned changes. A changed file can contain edits from several people; use interactive selection
+or filesystem isolation when file-level ownership is insufficient.
+
 ## Before rewriting shared history
 
 Find registered working copies below any root the operation may rewrite:
