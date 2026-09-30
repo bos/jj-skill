@@ -152,11 +152,14 @@ Mark each step as done before moving on.
   `jj squash --into @- --use-destination-message`.
   Plain squash can open an editor when both descriptions are nonempty. Choose the message policy
   explicitly for unattended commands. A full squash usually abandons the source and creates an
-  empty `@`; to describe the amended parent afterward, use `jj describe -r @- -m "Updated message"`.
+  empty `@`; describe the amended parent afterward with
+  `jj describe -r @- -m "Updated message"`.
 - Update only the description without creating a new change:
   `jj describe -m "Better message"`
-- If a message begins with `--`, pass `--` before it:
-  `jj commit -m -- "--looks like a flag"`
+- If a message begins with `--`, attach it to the option with `=`:
+  `jj commit --message="--looks like a flag"`.
+- `jj commit` has no Git-style `-F`; use `-m`. `jj describe --stdin` can read a description from
+  standard input.
 
 ### status, diff, filesets
 
@@ -221,8 +224,8 @@ example `jj restore --from @- --into @-- 'root:"src/"'`.
   `jj abandon @` removes the working copy commit and rebases children onto `@-`. The working copy
   gets a new empty commit.
 - Abandon a specific revision:
-  `jj abandon <revset>` removes that commit and rebases descendants onto its parents. The abandoned
-  commit's changes are removed from descendant trees; descendants keep their own changes.
+  `jj abandon <revset>` removes that commit and rebases descendants onto its parents. Its changes
+  are removed from descendant trees; descendants keep their own changes.
 - Keep descendants' final file contents while removing a commit:
   `jj abandon --restore-descendants <revset>`.
 - Keep bookmarks when abandoning:
@@ -338,18 +341,22 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 
 ## Helpful habits
 
+- Use `jj --quiet COMMAND` when needed; Git's `-q` is not a jj global option.
 - Quote revset and fileset expressions passed via the shell to avoid unintended expansion.
 - When history editing (squash, split, bookmark move, rebase), print the target revset with
   `jj log -r '<revset>'` so you know exactly which changes will move.
 - Skim `jj op log` after larger adjustments; it keeps the undo stack fresh in your mind.
+- After undoing or splitting changes, re-query targets instead of reusing IDs from undone results.
+- Keep stderr and check exit status when trying unfamiliar syntax. A pipe to `head` or `sed` can
+  hide a failed jj command and make an empty result look successful.
 - Use template aliases for commonly viewed logs to shorten the commands you reach for.
 
 ### Interactive commands
 
 - Interactive jj commands are available when they are the clearest path. Built-in TUIs such as
   `jj arrange`, `jj commit -i`, `jj split -i`, `jj restore -i`, and `jj diffedit` all work.
-- For deterministic automation, prefer explicit filesets plus `-m` or `--stdin`; use interactive
-  flows when you need hunk selection, reordering, or visual review.
+- For deterministic automation, prefer explicit filesets plus `-m` (or `--stdin` where supported
+  by that command); use interactive flows for hunk selection, reordering, or visual review.
 - Conflict handling can stay text-oriented (`jj resolve --list`, edit markers manually), but merge
   and diff tools are no longer off-limits when they fit the task.
 
