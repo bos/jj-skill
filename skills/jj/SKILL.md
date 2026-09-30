@@ -176,6 +176,8 @@ Mark each step as done before moving on.
   Git-compatible patch.
 - Limit operations to paths/filesets by passing them positionally:
   `jj commit src/lib.rs tests/` (there is no `--paths`).
+  `-R` selects a workspace without changing the current directory; use `root:` filesets or run
+  from that workspace. All options must precede `--`, which ends option parsing.
   See [filesets.md](references/filesets.md) for filesets.
 
 ### Splitting and merging changes

@@ -13,6 +13,17 @@ reference on filesets.
   negate with `~glob:"*.lock"`.
 - Use `--` before pathnames that could be parsed as flags:
   `jj file show -r @- -- path/to/file`.
+  Put every option before `--`; afterward, `--git` and other flags are treated as paths.
+
+## Repository and directory context
+
+`-R` / `--repository` selects a workspace without changing the process's working directory.
+Bare paths still resolve from that directory, and path output remains relative to it. For scripts,
+run from the target workspace; for fileset inputs from outside it, use `root:` selectors:
+
+```bash
+jj -R ../other file show -r @- 'root:"src/lib.rs"'
+```
 
 ## Quoting cues
 
