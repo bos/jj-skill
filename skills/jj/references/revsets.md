@@ -45,4 +45,6 @@ keywords, methods, and helper functions.
 - Show only visible heads:
   `jj log -r 'heads(visible())'`
 - Rebase the current stack onto `main`:
-  `jj rebase -s 'descendants(@) ~ @' -d main`
+  `jj rebase -b @ -d main`.
+  `descendants(@) ~ @` selects only children and later descendants, excluding the current change
+  and its ancestors; it does not select the stack leading to `@`.
