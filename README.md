@@ -12,9 +12,10 @@ commits, diffs, history edits, bookmarks, conflicts, workspaces, and remote sync
 | Jujutsu (`jj`) | `0.45.1` |
 | Claude Code | `2.1.285` |
 | Codex CLI | `0.159.2` |
+| GLM (via ZCode) | `5.3` |
 
 Checks cover basic jj command workflows, strict Claude Code plugin manifest validation, and
-Codex marketplace discovery.
+Codex marketplace discovery. Model evaluations include Codex, Claude, and GLM-5.3.
 
 The same skill files are packaged for Codex and Claude Code. They require `jj` on `PATH`.
 Repository detection uses `jj --ignore-working-copy root` when the repository type has not
