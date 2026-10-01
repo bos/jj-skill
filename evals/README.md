@@ -9,8 +9,8 @@ This measures command selection with the skill already supplied. It does not mea
 discovery, success across entire coding tasks, or future production success rates. Two repeats
 of sixteen selected scenarios give a small, correlated sample, rather than independent trials.
 
-See [the recorded comparison](results/2026-09-30/README.md) for models, source revisions,
-results, and evaluation corrections. Saved plans can be replayed without another model call.
+Generated plans, grades, and comparisons stay local under the ignored `results/`, `runs/`,
+and `review/` directories. Saved local plans can be replayed without another model call.
 
 The original c01/c02 fixtures contain static pre-existing edits, not a continuing writer.
 Original c03 checks workspace ownership and tracked notes in history; it does not check ignored
@@ -70,6 +70,5 @@ settings and tasks. Keep baseline and revised skill directories separate, and co
 the order across repeats. Freeze the evaluator before generating plans. The report stores
 prompt hashes and the adapter hash; record model IDs and source revisions alongside results.
 
-Generated engine logs remain under the ignored `runs/` directory. The checked-in comparison
-contains synthetic plans and summarized grades, without provider configuration, authentication,
-session databases, or personal conversation logs.
+Keep generated engine logs and comparisons in the ignored output directories. The repository
+tracks the evaluation scripts, fixtures, and freeze manifests.

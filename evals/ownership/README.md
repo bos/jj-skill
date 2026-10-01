@@ -24,6 +24,7 @@ separately by `smoke.py`; Linux and Windows are not runtime-tested here.
 ## Run without model calls
 
 Use exact jj 0.45.1. The tests isolate jj configuration and create disposable repositories.
+The replay example assumes the named plan has been generated locally; results are ignored.
 
 ```bash
 python3 evals/ownership/canaries.py --jj /opt/homebrew/bin/jj --output /tmp/jj-owned-canaries
@@ -56,5 +57,5 @@ Substitute Claude's adapter, or the frozen macOS `glm_adapter_300.py`. The latte
 installed GLM-5.3 engine with no tools, maximum reasoning, and a 300-second client watchdog.
 Authentication stays in process memory. The driver defaults to macOS executable locations.
 Run the same tasks with both skill versions and preserve failed attempts; do not retry a model
-with execution feedback. The [recorded comparison](../results/2026-09-30-ownership/README.md)
-contains source identities, settings, results, and limitations.
+with execution feedback. Store generated plans, comparisons, and provenance under the ignored
+`evals/results/` directory.

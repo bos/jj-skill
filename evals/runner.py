@@ -622,10 +622,9 @@ def canary(jj, output):
 
 
 def freeze():
-    files = ["cases.json"] + [
+    files = ["cases.json", "runner.py", "canary_negative.py"] + [
         str(p.relative_to(HERE))
-        for p in sorted(HERE.rglob("*.py"))
-        if "__pycache__" not in p.parts
+        for p in sorted((HERE / "adapters").glob("*.py"))
     ]
     manifest = {p: hashlib.sha256((HERE / p).read_bytes()).hexdigest() for p in files}
     (HERE / "frozen.json").write_text(json.dumps(manifest, indent=2))

@@ -1,8 +1,8 @@
 {
   "cases.json": "e0ad89d6545abd9742b265f1a4e3cd461bd13cd9d340281cba98a26ea869de1c",
+  "runner.py": "669272cd21b8fbd9ec1ec01060777a36d2ecc91e304e10583ff14be620b0c203",
+  "canary_negative.py": "5d17a43bb35d0ab451955ac46e20ac82330830e94d8edae6ac3c2e104e779016",
   "adapters/claude.py": "cfbc07378d0dde835be1802eb309efa3375a25d44a12d55e3dcb6f958eadba93",
   "adapters/codex.py": "80dad7ec74fe43ccf01106c77c1378bd8d17726504b0a446df761b4f69fabbdc",
-  "adapters/glm.py": "a7986a345745a423a4347607ab1776846b3c4fe6602bf600b2869e81621426d5",
-  "canary_negative.py": "5d17a43bb35d0ab451955ac46e20ac82330830e94d8edae6ac3c2e104e779016",
-  "runner.py": "bddc8bb3938d54745cae4d3a5aba7ff718677ae71fae4520843e39f47dbd79de"
+  "adapters/glm.py": "a7986a345745a423a4347607ab1776846b3c4fe6602bf600b2869e81621426d5"
 }
