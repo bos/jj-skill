@@ -2,9 +2,14 @@
 
 Workspaces isolate checked-out files, not history.
 
+Use the current workspace by default. Create a separate workspace when the user requests
+isolation, for overlapping concurrent file edits, or when switching revisions would disrupt
+another writer. Existing edits, other registered workspaces, or possible parallel work alone
+are not reasons to create one; preserve unrelated edits with task-scoped operations.
+
 ## Choosing a base
 
-Create a workspace at the revision the task needs:
+When a separate workspace is needed, create it at the revision the task needs:
 
 ```bash
 jj workspace add --name NAME -r BASE PATH

@@ -95,7 +95,8 @@ of the following commands:
 
 ## Minimal workflow checklist
 
-1. Run `jj status` or `jj diff -s` to inspect existing edits; preserve those outside this task.
+1. Work in the current workspace by default. Run `jj status` or `jj diff -s` to inspect existing
+   edits; preserve those outside this task.
 2. Create or focus the change you want (`jj new` for an empty child if needed).
 3. Make edits, then record with `jj commit -m "message"`; if you need to fold new edits into the
    parent, run `jj squash --into @- -m "message"`.
@@ -288,8 +289,9 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 - It runs each selected revision in an isolated working copy, amends that revision, and rebases
   descendants. Add `--restore-descendants` when descendants' final file content should stay
   unchanged.
-- Add `-j N` only when the command is parallel-safe. For manual or exploratory work, use a
-  `jj workspace` instead.
+- Add `-j N` only when the command is parallel-safe. For manual or exploratory work, edit in the
+  current workspace by default; apply the workspace selection guidance below if isolation is
+  needed.
 
 ### Bookmark hygiene
 
@@ -316,11 +318,14 @@ Leaving an empty working-copy change can abandon it, making its change ID unreso
 - Show tracked files or content at a revision:
   `jj file list` / `jj file show -r @- -- path/to/file`
 
-### Parallel isolated work
+### Workspace selection and parallel work
 
-- Disjoint-file edits can stay in the current checkout; scope commits to this task's files.
-  Use a separate workspace for overlapping concurrent file edits, or when switching revisions
-  would disrupt another writer using this checkout.
+- Stay in the current workspace for ordinary work. Existing edits, other registered workspaces,
+  or the possibility of parallel work do not by themselves require a new workspace. Preserve
+  unrelated edits with task-scoped operations.
+- Create a separate workspace when the user requests isolation, for overlapping concurrent file
+  edits, or when switching revisions would disrupt another writer using this checkout.
+  Disjoint-file edits can share the current checkout with task-scoped commits.
 - Record the names and paths of workspaces this session creates. Retire them after this task and
   the commands or agents you launched there have finished; retain workspaces handed to others.
   Snapshot pending notes, forget that workspace, then move its directory to recoverable trash.
